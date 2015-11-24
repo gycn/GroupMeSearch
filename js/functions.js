@@ -90,7 +90,6 @@ function loadNewGroup(id)
 {
 	currentid = id;
 	resetMessages();
-	
 	loadGroupMessages(id,null,0);
 	idx = lunr(function () {
 		this.ref('id');
@@ -188,9 +187,11 @@ function tdWrap(text)
 function showSecond()
 {
 	if (groups)
-	{
+	{	
+
 		$("#intro").hide();
 		$("#second").show();
+		$("#groups li").remove();
 		addItemToGroup(makeActiveGroupItem(groups[0].name,groups[0].id));
 		for (var i = 1; i < groups.length; i++)
 		{
