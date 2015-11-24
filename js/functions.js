@@ -4,7 +4,6 @@ var messages = null;
 var tkn = null;
 var idx = null;
 var indexedMessages = null;
-var stopGrabbing = false;
 var currentid = null;
 function getGroups(tkn)
 {
@@ -33,6 +32,9 @@ function showIntro()
 	groups = null;
 	messages = null;
 	tkn = null;
+	idx = null;
+	currentid = null;
+	indexedMessages = null;
 }
 
 $(document).ready(function() {
@@ -49,7 +51,10 @@ $(document).ready(function() {
 			getGroups(key);
 		}
 	});
-
+	$("#logout").click(function(e){
+		e.preventDefault();
+		showIntro();
+	});
 });
 
 function makeGroupItem(name,id)
