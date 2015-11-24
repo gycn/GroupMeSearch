@@ -190,7 +190,6 @@ function showSecond()
 			addItemToGroup(makeGroupItem(groups[i].name,groups[i].id))
 		}
 		$("#search").change(function(){
-			alert("searching");
 			srch($("#search").val());
 		});
 		loadNewGroup(groups[0].id);
