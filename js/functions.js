@@ -6,7 +6,6 @@ var idx = null;
 var indexedMessages = null;
 var stopGrabbing = false;
 var currentid = null;
-var searching = false;
 function getGroups(tkn)
 {
 	$.get( makeUrl("/groups"), { token: tkn } )
