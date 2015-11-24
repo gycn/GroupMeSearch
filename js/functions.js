@@ -176,7 +176,7 @@ function displayMessage(msg)
 
 function makeMessageItem(msg)
 {
-	return $("<tr>"+tdWrap(msg.poster) + tdWrap(msg.text) + tdWrap(msg.date) + tdWrap(msg.likes) + "</tr>");
+	return $("<tr>"+tdWrap(msg.poster) + tdWrap(msg.text) + tdWrap((new Date(parseInt(msg.date)*1000)).toDateString()) + tdWrap(msg.likes) + "</tr>");
 }
 
 function tdWrap(text)
@@ -197,7 +197,7 @@ function showSecond()
 		{
 			addItemToGroup(makeGroupItem(groups[i].name,groups[i].id))
 		}
-		$("#search").change(function(){
+		$("#search").on('input',function(){
 			srch($("#search").val());
 		});
 		loadNewGroup(groups[0].id);
