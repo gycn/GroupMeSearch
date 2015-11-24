@@ -27,8 +27,8 @@ function makeUrl(ext)
 
 function showIntro()
 {
-	$("#intro").show();
 	$("#second").hide();
+	$("#intro").show();
 	groups = null;
 	messages = null;
 	tkn = null;
@@ -101,37 +101,40 @@ function loadNewGroup(id)
 
 function loadGroupMessages(id,previous, lastcount)
 {
-	var count = lastcount
-	$.get( makeUrl("/groups/" + id + "/messages"),  {token: tkn, limit: 100, before_id:previous})
-	  .done(function( data, status, xhr ) {
-	  	if (xhr.status != 304)
-	  	{
-	  		var temp = [];
-	  		data.response.messages.forEach(function(msg) {
-	  			if (currentid == id)
-	  			{
-		  			var item = ({poster: msg.name, text: msg.text, likes:msg.favorited_by.length, date:msg.created_at});
-		  			temp.push(item);
-		  			var msgitem = jQuery.extend({}, item);
-		  			msgitem.obj = makeMessageItem(msgitem);
-		  			msgitem.id = count;
-		  			messages.push(msgitem);
-		  			indexedMessages[count] = msgitem;
-		  			idx.add(msgitem);	
-		  			srch($("#search").val());
-		  			count+=1;
-		  		}
-		  		else
-		  		{
-		  			return;
-		  		}
-	  		});
-	  		loadGroupMessages(id, data.response.messages[data.response.messages.length-1].id,count);
-	  	}
-	  	
-	  }).fail(function () {
-	  	alert("Couldn't grab messages.");
-	  });
+	if(!($("#second").css('display') == 'none'))
+	{
+		var count = lastcount
+		$.get( makeUrl("/groups/" + id + "/messages"),  {token: tkn, limit: 100, before_id:previous})
+		  .done(function( data, status, xhr ) {
+		  	if (xhr.status != 304)
+		  	{
+		  		var temp = [];
+		  		data.response.messages.forEach(function(msg) {
+		  			if (currentid == id)
+		  			{
+			  			var item = ({poster: msg.name, text: msg.text, likes:msg.favorited_by.length, date:msg.created_at});
+			  			temp.push(item);
+			  			var msgitem = jQuery.extend({}, item);
+			  			msgitem.obj = makeMessageItem(msgitem);
+			  			msgitem.id = count;
+			  			messages.push(msgitem);
+			  			indexedMessages[count] = msgitem;
+			  			idx.add(msgitem);	
+			  			srch($("#search").val());
+			  			count+=1;
+			  		}
+			  		else
+			  		{
+			  			return;
+			  		}
+		  		});
+		  		loadGroupMessages(id, data.response.messages[data.response.messages.length-1].id,count);
+		  	}
+		  	
+		  }).fail(function () {
+		  	alert("Couldn't grab messages.");
+		  });
+	}
 }
 
 function srch(words)
